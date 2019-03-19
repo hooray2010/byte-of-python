@@ -105,14 +105,13 @@ venv.bak/
 
 
 # my java config
+.idea/
+.idea/workspace.xml
 .DS_Store
-*.prefs
 .metadata
 .project
 .classpath
 *.iml
-.idea/
-.idea/workspace.xml
 target/
 */logs/*
 logs/*
