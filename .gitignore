@@ -102,3 +102,19 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# my config
+.DS_Store
+*.prefs
+.metadata
+.project
+.classpath
+*.iml
+.idea/
+target/
+*/logs/*
+logs/*
+.jde*
+.tomcatplugin
+.#webclasspath
