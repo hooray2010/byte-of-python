@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 
-# my config
+# my java config
 .DS_Store
 *.prefs
 .metadata
@@ -112,9 +112,8 @@ venv.bak/
 .classpath
 *.iml
 .idea/
+.idea/workspace.xml
 target/
 */logs/*
 logs/*
 .jde*
-.tomcatplugin
-.#webclasspath
