@@ -1,7 +1,8 @@
 """
 单链表反转（递归）
+两个有序的链表合并（利用中间节点，指针依次后移）
+
 链表中环的检测
-两个有序的链表合并
 删除链表倒数第n个结点
 求链表的中间结点
 """
@@ -27,6 +28,7 @@ class Node(object):
     @next_node.setter
     def next_node(self, next_node):
         self.__next = next_node
+        return next_node
 
 
 class SinglyLinkedList(object):
@@ -48,6 +50,12 @@ class SinglyLinkedList(object):
         """
         node.next_node = self.__head.next_node
         self.__head.next_node = node
+
+    def insert_to_end(self, end_node):
+        current_node = self.__head
+        while current_node.next_node is not None:
+            current_node = current_node.next_node
+        current_node.next_node = end_node
 
     def insert_after(self, node, value):
         if node is None:
@@ -223,7 +231,55 @@ class SinglyLinkedList(object):
         print(str(current_node.data))
 
 
+def merge_sorted_list(node1: Node, node2: Node):
+    """
+    利用中间节点，指针后移
+    """
+    head = Node()
+    tail = head
+    while (node1 is not None) and (node2 is not None):
+        if node1.data <= node2.data:
+            tail.next_node = node1
+            node1 = node1.next_node
+        else:
+            tail.next_node = node2
+            node2 = node2.next_node
+        tail = tail.next_node
+
+    while (node1 is not None):
+        tail.next_node = node1
+        node1 = node1.next_node
+        tail = tail.next_node
+
+    while (node2 is not None):
+        tail.next_node = node2
+        node2 = node2.next_node
+        tail = tail.next_node
+
+    return head.next_node
+
+
 if __name__ == '__main__':
+    node1 = Node(1)
+    node2 = Node(2)
+    node3 = Node(3)
+    node4 = Node(4)
+    node5 = Node(5)
+    node6 = Node(6)
+
+    node1.next_node = node3
+    node3.next_node = node5
+
+    node2.next_node = node4
+    node4.next_node = node6
+
+    merge_node = merge_sorted_list(node1, node2)
+
+    ll_merge = SinglyLinkedList()
+    ll_merge.insert_to_end(merge_node)
+    print("合并后的链表为：")
+    ll_merge.print_all()
+
     ll = SinglyLinkedList()
     ll.print_all()
 
