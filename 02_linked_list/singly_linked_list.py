@@ -1,10 +1,15 @@
 """
-单链表反转（递归）
-两个有序的链表合并（利用中间节点，指针依次后移）
+1、单链表反转（循环 or 递归）
+2、两个有序的链表合并（利用中间节点，指针依次后移）
 
-链表中环的检测
-删除链表倒数第n个结点
-求链表的中间结点
+3、链表中环的检测
+4、删除链表倒数第n个结点
+5、求链表的中间结点
+
+6、判断是否是回文
+①利用快慢指针，找到中点节点slow
+②反转中间节点slow之后的链表
+③遍历原始头节点head与新链表slow
 """
 
 
@@ -28,7 +33,6 @@ class Node(object):
     @next_node.setter
     def next_node(self, next_node):
         self.__next = next_node
-        return next_node
 
 
 class SinglyLinkedList(object):
@@ -38,6 +42,10 @@ class SinglyLinkedList(object):
 
     def __init__(self):
         self.__head = Node()
+
+    @property
+    def head(self):
+        return self.__head
 
     def create_node(self, value):
         return Node(value)
@@ -82,7 +90,6 @@ class SinglyLinkedList(object):
                 return
             else:
                 pre_node = pre_node.next_node
-
         # 运行至此，则必定已找到pre_node
         self.insert_after(pre_node, value)
 
@@ -179,9 +186,9 @@ class SinglyLinkedList(object):
         return slow
 
     def reverse_all(self):
+        """递归反转"""
         if self.__head is None or self.__head.next_node is None:
             return
-
         self.__reverse_one_node(self.__head.next_node)
 
     def __reverse_one_node(self, current_node):
@@ -202,6 +209,18 @@ class SinglyLinkedList(object):
         current_node.next_node = None
 
         return current_node
+
+    def reverse_all2(self):
+        """循环反转"""
+        head = self.__head.next_node
+        reverse_head = None
+        while head:
+            next = head.next_node
+            head.next_node = reverse_head
+            reverse_head = head
+            head = next
+        # 加入守护节点，链接反转后的表头
+        self.__head.next_node = reverse_head
 
     def has_ring(self):
         fast = self.__head
@@ -295,7 +314,11 @@ if __name__ == '__main__':
     ll.print_all()
 
     ll.reverse_all()
-    print("翻转后的结果为：")
+    print("翻转后的结果1为：")
+    ll.print_all()
+
+    ll.reverse_all2()
+    print("翻转后的结果2为：")
     ll.print_all()
 
     ll.insert_to_head(6)
